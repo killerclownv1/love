@@ -4,8 +4,19 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <title>Will You Go On A Date With Me Raina? 💖</title>
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>💖</text></svg>">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🍊</text></svg>">
   <link rel="stylesheet" href="css/style.css">
+  <style>
+    .custom-orange-img {
+      max-width: 220px;
+      width: 100%;
+      height: auto;
+      border-radius: 20px;
+      display: block;
+      margin: 0 auto;
+      box-shadow: 0 8px 24px rgba(255, 117, 143, 0.2);
+    }
+  </style>
 </head>
 <body>
 
@@ -17,7 +28,7 @@
     <source src="assets/romantic.mp3" type="audio/mpeg">
   </audio>
 
-  <!-- Top Floating Navigation (Only Music Toggle Kept) -->
+  <!-- Top Floating Navigation -->
   <header class="top-nav">
     <button id="music-toggle-btn" class="nav-btn">🎵 Music: OFF</button>
   </header>
@@ -31,14 +42,16 @@
     <section id="step-1-proposal" class="step-container glass-card">
       <div class="step-header">
         <div class="top-badge-row" style="justify-content: center;">
-          <span class="step-badge">Question of the Century 🌹</span>
+          <span class="step-badge">Question of the Century 🍊🌹</span>
         </div>
         <span id="crush-display-name" class="crush-highlight">Raina 💖</span>
         <h1 id="proposal-title" class="step-title">Will you go on a date with me? 💖</h1>
       </div>
 
-      <!-- Animated SVG Character -->
-      <div class="character-box" id="character-display"></div>
+      <!-- Custom Image: Before she clicks Yes -->
+      <div class="character-box" id="character-display">
+        <img src="assets/Shes%20thinking.jpg" alt="Thinking Orange" class="custom-orange-img">
+      </div>
 
       <!-- Yes / No Buttons -->
       <div class="proposal-box">
@@ -57,33 +70,31 @@
       <div class="step-header">
         <span class="step-badge">WOOHOO! 🎉</span>
         <h1 id="celeb-title" class="step-title">YAAAY! I Knew You'd Say Yes! 🎉</h1>
-        <p id="celeb-sub" class="step-subtitle">I can't wait to take you out! 💖✨</p>
+        <p id="celeb-sub" class="step-subtitle">I promise to always peel your oranges for you! 🍊💖✨</p>
       </div>
 
-      <div class="character-box" id="celebration-character"></div>
+      <!-- Custom Image: After she clicks Yes -->
+      <div class="character-box" id="celebration-character">
+        <img src="assets/She%20said%20yes.jpg" alt="Happy Orange" class="custom-orange-img">
+      </div>
     </section>
 
   </main>
 
-  <!-- Original Scripts for Effects, Confetti, Character, and Runaway Button -->
+  <!-- Scripts (character.js removed so it doesn't overwrite your orange images) -->
   <script src="js/config.js"></script>
   <script src="js/sound.js"></script>
   <script src="js/confetti.js"></script>
-  <script src="js/character.js"></script>
   <script src="js/runaway.js"></script>
   <script src="js/app.js"></script>
 
-  <!-- Override script to ensure js/config.js doesn't overwrite Raina's name or subtitle -->
+  <!-- Safeguard to keep your custom orange images locked in place even if app.js tries to re-render -->
   <script>
-    window.addEventListener('DOMContentLoaded', () => {
-      setTimeout(() => {
-        const nameEl = document.getElementById('crush-display-name');
-        if (nameEl) nameEl.textContent = 'Raina 💖';
-        
-        const subEl = document.getElementById('celeb-sub');
-        if (subEl) subEl.textContent = "I can't wait to take you out! 💖✨";
-      }, 50);
-    });
+    window.CharacterRenderer = {
+      render: function() {},
+      setMood: function() {},
+      init: function() {}
+    };
   </script>
 </body>
 </html>
