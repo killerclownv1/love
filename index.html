@@ -1,4 +1,4 @@
-<!DOCTYPE html> 
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -17,6 +17,10 @@
       box-shadow: 0 8px 24px rgba(255, 117, 143, 0.2);
     }
   </style>
+  <script>
+    // Wipe any saved "Rabbit" settings from browser memory immediately
+    try { localStorage.clear(); } catch (e) {}
+  </script>
 </head>
 <body>
 
@@ -44,14 +48,19 @@
         <div class="top-badge-row" style="justify-content: center;">
           <span class="step-badge">Question of the Century 🍊🌹</span>
         </div>
-        <span id="crush-display-name" class="crush-highlight">Raina 💖</span>
+        <!-- Renamed ID so app.js cannot overwrite Raina with Rabbit -->
+        <span id="raina-custom-name" class="crush-highlight">Raina 💖</span>
+        <!-- Hidden dummy span so app.js doesn't crash looking for crush-display-name -->
+        <span id="crush-display-name" style="display:none;"></span>
         <h1 id="proposal-title" class="step-title">Will you go on a date with me? 💖</h1>
       </div>
 
       <!-- Custom Image: Before she clicks Yes -->
-      <div class="character-box" id="character-display">
-        <img src="assets/Shes%20thinking.jpg" alt="Thinking Orange" class="custom-orange-img">
+      <div class="character-box">
+        <img id="thinking-orange-img" src="Shes%20thinking.jpg" alt="Thinking Orange" class="custom-orange-img">
       </div>
+      <!-- Hidden dummy div so app.js doesn't overwrite the image -->
+      <div id="character-display" style="display:none;"></div>
 
       <!-- Yes / No Buttons -->
       <div class="proposal-box">
@@ -70,31 +79,62 @@
       <div class="step-header">
         <span class="step-badge">WOOHOO! 🎉</span>
         <h1 id="celeb-title" class="step-title">YAAAY! I Knew You'd Say Yes! 🎉</h1>
-        <p id="celeb-sub" class="step-subtitle">I promise to always peel your oranges for you! 🍊💖✨</p>
+        <p id="celeb-sub-custom" class="step-subtitle">I promise to always peel your oranges for you! 🍊💖✨</p>
+        <p id="celeb-sub" style="display:none;"></p>
       </div>
 
       <!-- Custom Image: After she clicks Yes -->
-      <div class="character-box" id="celebration-character">
-        <img src="assets/She%20said%20yes.jpg" alt="Happy Orange" class="custom-orange-img">
+      <div class="character-box">
+        <img id="happy-orange-img" src="She%20said%20yes.jpg" alt="Happy Orange" class="custom-orange-img">
       </div>
+      <div id="celebration-character" style="display:none;"></div>
     </section>
 
   </main>
 
-  <!-- Scripts (character.js removed so it doesn't overwrite your orange images) -->
-  <script src="js/config.js"></script>
-  <script src="js/sound.js"></script>
-  <script src="js/confetti.js"></script>
-  <script src="js/runaway.js"></script>
-  <script src="js/app.js"></script>
-
-  <!-- Safeguard to keep your custom orange images locked in place even if app.js tries to re-render -->
+  <!-- Dummy CharacterRenderer so app.js never errors out -->
   <script>
     window.CharacterRenderer = {
       render: function() {},
       setMood: function() {},
       init: function() {}
     };
+
+    // Automatic Image Path Finder (checks root folder & assets/ folder for both filenames)
+    function loadSmartImage(imgId, possiblePaths) {
+      const img = document.getElementById(imgId);
+      let index = 0;
+      img.onerror = function() {
+        index++;
+        if (index < possiblePaths.length) {
+          img.src = possiblePaths[index];
+        }
+      };
+      img.src = possiblePaths[0];
+    }
+
+    window.addEventListener('DOMContentLoaded', () => {
+      loadSmartImage('thinking-orange-img', [
+        'Shes%20thinking.jpg',
+        'assets/Shes%20thinking.jpg',
+        'Shes%20thinking_2.jpg',
+        'assets/Shes%20thinking_2.jpg'
+      ]);
+
+      loadSmartImage('happy-orange-img', [
+        'She%20said%20yes.jpg',
+        'assets/She%20said%20yes.jpg',
+        'She%20said%20yes_2.jpg',
+        'assets/She%20said%20yes_2.jpg'
+      ]);
+    });
   </script>
+
+  <!-- Original Scripts -->
+  <script src="js/config.js"></script>
+  <script src="js/sound.js"></script>
+  <script src="js/confetti.js"></script>
+  <script src="js/runaway.js"></script>
+  <script src="js/app.js"></script>
 </body>
 </html>
