@@ -4,7 +4,7 @@
  */
 const DATE_APP_CONFIG = {
   // Default names
-  crushName: "Raina 🍊💖",
+  crushName: "Raina 💖",
   crushFullName: "Raina",
   senderName: "Josh",
   
