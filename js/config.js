@@ -6,7 +6,7 @@ const DATE_APP_CONFIG = {
   // Default names
   crushName: "Raina 💖",
   crushFullName: "Raina",
-  senderName: "Josh",
+  senderName: "Joshua",
   
   // WhatsApp number (Unused in simplified version)
   whatsappNumber: "",
